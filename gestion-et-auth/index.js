@@ -81,7 +81,13 @@ app.post('/register' , async (req,res) =>{
 
     res.json({
         message : 'Utilisateur enregistré avec succès.',
-        token
+        token,
+        user: {
+            _id: newUser._id,
+            username: newUser.username,
+            email: newUser.email,
+            role: newUser.role
+        }
     });
 })
 

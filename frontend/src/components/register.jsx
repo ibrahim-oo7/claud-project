@@ -21,11 +21,19 @@ export default function Register() {
         role
       });
 
+      const userData = res.data.user || res.data;
+
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
 
-      navigate("/AfficherUtilisateurs");
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      if (userData.role === "admin") {
+        navigate("/AfficherUtilisateurs");
+      } else {
+        navigate("/afficher");
+      }
 
     } catch (err) {
       console.log(err.response);
@@ -63,10 +71,10 @@ export default function Register() {
           required 
         />
         <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="" disapled>select</option>
-            <option value="admin" >admin</option>
-            <option value="membre" >membre</option>
-            <option value="invite" >invite</option>
+          <option value="" disabled>select</option>
+          <option value="admin">admin</option>
+          <option value="membre">membre</option>
+          <option value="invite">invite</option>
         </select>
         <button type="submit">Register</button>
       </form>

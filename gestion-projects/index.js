@@ -17,20 +17,20 @@ db.on('err' , (err) => console.log(`error connecting to database ${err}`));
 db.once("open" , () => console.log('connected to databse'));
 
 
-categorieModel.insertMany([
-    {
-        nom: "Web",
-        description: "Web development projects"
-    },
-    {
-        nom: "Mobile",
-        description: "Mobile applications"
-    },
-    {
-        nom: "AI",
-        description: "Artificial intelligence projects"
-    }
-])
+// categorieModel.insertMany([
+//     {
+//         nom: "Web",
+//         description: "Web development projects"
+//     },
+//     {
+//         nom: "Mobile",
+//         description: "Mobile applications"
+//     },
+//     {
+//         nom: "AI",
+//         description: "Artificial intelligence projects"
+//     }
+// ])
 
 app.get('/projects',authentificat, async (req,res) => {
     const projects = await projetModel.find();

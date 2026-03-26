@@ -1,6 +1,5 @@
-// App.js
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/header';
 
 // User Components
@@ -21,27 +20,59 @@ import TaskPage from './pages/TaskPage';
 import KanbanPage from './pages/KanbanPage';
 import ReportsPage from './pages/ReportsPage';
 
+function AdminRoute({ children }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+
+  if (user?.role !== "admin") {
+    return <Navigate to="/afficher" />;
+  }
+
+  return children;
+}
+
 function App() {
   return (
     <div className="App">
       <Header />
       <Routes>
-        {/* Authentication */}
         <Route path="/" element={<Login />} />
         <Route path="/Register" element={<Register />} />
 
-        {/* User Management */}
-        <Route path="/AfficherUtilisateurs" element={<AfficherUtilisateurs />} />
-        <Route path="/AjouterUtilisateur" element={<AjouterUtilisateur />} />
-        <Route path="/modifierUtilisateur/:id" element={<ModifierUtilisateur />} />
+        <Route
+          path="/AfficherUtilisateurs"
+          element={
+            <AdminRoute>
+              <AfficherUtilisateurs />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/AjouterUtilisateur"
+          element={
+            <AdminRoute>
+              <AjouterUtilisateur />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/modifierUtilisateur/:id"
+          element={
+            <AdminRoute>
+              <ModifierUtilisateur />
+            </AdminRoute>
+          }
+        />
 
-        {/* Project Management */}
         <Route path="/afficher" element={<Afficher />} />
         <Route path="/ajouter" element={<Ajouter />} />
         <Route path="/modifier/:id" element={<Modifier />} />
         <Route path="/details/:id" element={<Details />} />
 
-        {/* Pages */}
         <Route path="/tasks/:id" element={<TaskPage />} />
         <Route path="/kanban/:id" element={<KanbanPage />} />
         <Route path="/reports/:id" element={<ReportsPage />} />
