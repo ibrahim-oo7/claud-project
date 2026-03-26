@@ -12,6 +12,10 @@ const commentSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    authorName: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
@@ -47,9 +51,8 @@ const taskSchema = new mongoose.Schema(
       required: true,
     },
     assignedTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
+      type: String,
+      default: "",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

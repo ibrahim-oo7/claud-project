@@ -206,7 +206,7 @@ const assignTaskToUser = async (req, res) => {
 // Add comment to task
 const addCommentToTask = async (req, res) => {
   try {
-    const { text, author } = req.body;
+    const { text, author, authorName } = req.body;
 
     if (!text || !author) {
       return res.status(400).json({
@@ -222,7 +222,7 @@ const addCommentToTask = async (req, res) => {
       });
     }
 
-    task.comments.push({ text, author });
+    task.comments.push({ text, author, authorName });
     await task.save();
 
     const updatedTask = await Task.findById(req.params.id);
@@ -235,6 +235,7 @@ const addCommentToTask = async (req, res) => {
     });
   }
 };
+
 // upload file 
 const uploadFileToTask = async (req, res) => {
   try {

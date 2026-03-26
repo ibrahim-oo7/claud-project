@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 const userModel = require("./Model");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const SECRET = process.env.JWT_SECRET || "secret_key";
 const {authentificat,onlyAdmin} = require('./middleware');
 const cors = require('cors');
@@ -18,21 +19,38 @@ db.once("open" , () => console.log('connected to databse'));
 
 app.post("/login", async (req,res) => {
     const { email, password } = req.body;
-    const user = await userModel.findOne({ email: email, password: password });
+
+    const user = await userModel.findOne({ email: email });
+
     if(!user){
         return res.status(400).json({ message: "Email ou mot de passe incorrect" });
     }
-    if(user.isBlocked){
-    return res.status(403).json({message : "had user mnlocki mskin"})
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if(!isMatch){
+        return res.status(400).json({ message: "Email ou mot de passe incorrect" });
     }
+
+    if(user.isBlocked){
+        return res.status(403).json({message : "had user mnlocki mskin"})
+    }
+
     const token = jwt.sign(
         { id: user._id, role : user.role },
         SECRET,
         { expiresIn: '24h' }
     );
+
     res.json({
         message: 'Bienvenue!',
-        token: token
+        token: token,
+        user: {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
+        }
     });
 });
 
