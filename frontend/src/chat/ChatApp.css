@@ -4,11 +4,11 @@
   --accent-strong: #3b82f6;
   --text-main: #1e293b;
   --text-soft: #64748b;
-  --border-soft: rgba(15, 23, 42, 0.06);
-  --border-light: rgba(148, 163, 184, 0.18);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.18);
   --shadow-main: 0 6px 16px rgba(15, 23, 42, 0.04);
   --surface: #ffffff;
-  --surface-alt: #f8fafc;
+  --surface-alt: #ffffff;
 }
 
 * {
@@ -18,57 +18,30 @@
 .chat-app-page {
   width: 100%;
   min-height: 100vh;
-  padding: 12px;
+  padding: 10px;
   background: var(--surface-alt);
-}
-
-.chat-app-topbar {
-  margin-bottom: 10px;
-}
-
-.chat-app-back-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #ffffff;
-  color: var(--primary-dark);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-main);
-  font-size: 0.92rem;
-  font-weight: 700;
-  transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease;
-}
-
-.chat-app-back-link:hover {
-  background: #eff6ff;
-  color: var(--accent-strong);
-  transform: translateY(-1px);
 }
 
 .chat-app-layout {
   display: flex;
-  gap: 12px;
-  padding: 0;
-  align-items: flex-start;
+  gap: 14px;
+  align-items: stretch;
 }
 
 .chat-app-layout > *:first-child {
-  flex: 1.6;
+  flex: 1.65;
   min-width: 0;
 }
 
 .chat-app-layout > *:last-child {
   flex: 1;
-  min-width: 280px;
+  min-width: 300px;
 }
 
 .chat-app-notification-layout {
   display: flex;
-  gap: 12px;
-  padding: 0;
+  gap: 14px;
+  align-items: stretch;
 }
 
 .chat-app-notification-layout > * {
@@ -78,12 +51,17 @@
 @media (max-width: 900px) {
   .chat-app-layout {
     flex-direction: column;
+    gap: 10px;
   }
 
-  .chat-app-layout > *:last-child,
-  .chat-app-layout > *:first-child {
+  .chat-app-layout > *:first-child,
+  .chat-app-layout > *:last-child {
     width: 100%;
     min-width: 0;
+  }
+
+  .chat-app-notification-layout {
+    gap: 10px;
   }
 }
 
@@ -92,16 +70,8 @@
     padding: 8px;
   }
 
-  .chat-app-topbar {
-    margin-bottom: 8px;
-  }
-
   .chat-app-layout,
   .chat-app-notification-layout {
     gap: 8px;
-  }
-
-  .chat-app-back-link {
-    width: 100%;
   }
 }
