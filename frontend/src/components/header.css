@@ -157,6 +157,26 @@ body {
   flex-shrink: 0;
 }
 
+.header-username {
+  margin-right: 12px;
+  padding: 8px 14px;
+  background: rgba(56, 189, 248, 0.14); /* نفس vibe ديال buttons */
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--white);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.header-username:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: var(--accent-strong);
+  transform: translateY(-1px);
+  cursor: default;
+}
+
 .logout-btn {
   border: 1px solid rgba(56, 189, 248, 0.22);
   background: transparent;

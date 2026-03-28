@@ -9,13 +9,14 @@ export default function Header() {
   const token = localStorage.getItem("token");
 
   const links = token
-    ? [
-        ...(role === "admin"
-          ? [{ path: "/AfficherUtilisateurs", name: "Users" }]
-          : []),
-        { path: "/afficher", name: "Projects" },
-      ]
-    : [];
+  ? [
+      ...(role === "admin"
+        ? [{ path: "/AfficherUtilisateurs", name: "Users" }]
+        : []),
+      { path: "/afficher", name: "Projects" },
+      { path: "/Myprojects", name: "My Projects" }, 
+    ]
+  : [];
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,7 +28,7 @@ export default function Header() {
     <header className="header">
       <div className="brand">
         <div className="logo-wrapper">
-          <img src="/logo.png" alt="logo" className="logo" />
+          <img src="/logo2.png" alt="logo" className="logo" />
         </div>
 
         <div className="brand-text">
@@ -55,10 +56,13 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
-          </div>
+      {user?.username && (
+        <span className="header-username">Hello, {user.username}</span>
+      )}
+      <button onClick={handleLogout} className="logout-btn">
+        Logout
+      </button>
+</div>
         </>
       )}
     </header>

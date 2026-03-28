@@ -50,6 +50,12 @@ export default function ProjectDetails() {
           <p className="project-summary-item">
             <strong>Status:</strong> {project.statut}
           </p>
+          <p className="project-summary-item">
+            <strong>start date:</strong> {new Date(project.date_debut).toLocaleDateString("en-CA")}
+          </p>
+          <p className="project-summary-item">
+            <strong>end date:</strong> {new Date(project.date_fin).toLocaleDateString("en-CA")}
+          </p>
         </div>
 
         <div className="project-layout">

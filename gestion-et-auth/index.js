@@ -60,8 +60,7 @@ app.post('/register' , async (req,res) =>{
     if(existingOne){
         return res.status(400).json({message : 'L\'email existe déjà.'})
     }
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedpassword = await bcrypt.hash(password,salt);
+
 
     const newUser = new userModel({
         id : Date.now(),
@@ -151,6 +150,42 @@ app.put("/unblock/:id", authentificat, onlyAdmin, async (req,res) => {
     )
     res.json(user)
 })
+
+app.put("/profile/update/:id", authentificat, async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    if (req.user.id !== userId && req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const { username, email, oldPassword, newPassword } = req.body;
+    const updateData = { username, email };
+
+    if (newPassword) {
+      const user = await userModel.findById(userId);
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Old password is incorrect" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      updateData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    }).select("-password");
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 port = 3001;
 app.listen(port, () => {

@@ -226,7 +226,11 @@ export default function AfficherProjects() {
                 <th>Project Name</th>
                 <th>Description</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>start date</th>
+                <th>end date</th>
+                {r === "admin" && (
+                  <th>Actions</th>
+                )}
               </tr>
             </thead>
 
@@ -238,25 +242,28 @@ export default function AfficherProjects() {
                   <td>
                     <span className="project-status-badge">{p.statut}</span>
                   </td>
+                  <td className="project-description-cell">{new Date(p.date_debut).toLocaleDateString("en-CA")}</td>
+                  <td className="project-description-cell">{new Date(p.date_fin).toLocaleDateString("en-CA")}</td>
 
                   <td>
                     <div className="project-actions">
-                      <Link
-                        to={`/details/${p._id}`}
-                        className="table-link details-link"
-                      >
-                        View Details
-                      </Link>
 
-                      {r === "admin" ? (
+                      {r === "admin" && (
+                        <Link
+                          to={`/details/${p._id}`}
+                          className="table-link details-link"
+                        >
+                          View Details
+                        </Link>
+                      )}
+
+                      {r === "admin" && (
                         <Link
                           to={`/modifier/${p._id}`}
                           className="table-link edit-link"
                         >
                           Edit
                         </Link>
-                      ) : (
-                        ""
                       )}
 
                       {r === "admin" && (
@@ -275,6 +282,7 @@ export default function AfficherProjects() {
                           Delete
                         </button>
                       )}
+
                     </div>
                   </td>
                 </tr>
