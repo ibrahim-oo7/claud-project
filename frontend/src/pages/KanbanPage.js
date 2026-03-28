@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getTasksByProject, updateTaskStatus } from "../services/taskService";
+import './KanbanPage.css';
 
 function KanbanPage() {
   const { projectId, id } = useParams();
@@ -96,7 +97,7 @@ function KanbanPage() {
     if (status === "overdue") {
       return (
         <p className="kanban-deadline kanban-deadline-overdue">
-          Deadline dépassée
+          Deadline overdue
         </p>
       );
     }
@@ -104,7 +105,7 @@ function KanbanPage() {
     if (status === "near") {
       return (
         <p className="kanban-deadline kanban-deadline-near">
-          Deadline proche
+          Deadline approaching
         </p>
       );
     }
@@ -167,7 +168,7 @@ function KanbanPage() {
       <div className="kanban-page-header">
         <h1 className="kanban-page-title">Kanban Board</h1>
         <p className="kanban-page-subtitle">
-          Organisez vos tâches avec une vue claire, moderne et fluide.
+          Organize your tasks with a clear, modern, and smooth view.
         </p>
       </div>
 

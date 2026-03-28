@@ -20,6 +20,9 @@ import TaskPage from './pages/TaskPage';
 import KanbanPage from './pages/KanbanPage';
 import ReportsPage from './pages/ReportsPage';
 
+// chat
+import ChatApp from './chat/ChatApp';
+
 function AdminRoute({ children }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
@@ -71,11 +74,14 @@ function App() {
         <Route path="/afficher" element={<Afficher />} />
         <Route path="/ajouter" element={<Ajouter />} />
         <Route path="/modifier/:id" element={<Modifier />} />
-        <Route path="/details/:id" element={<Details />} />
 
-        <Route path="/tasks/:id" element={<TaskPage />} />
-        <Route path="/kanban/:id" element={<KanbanPage />} />
-        <Route path="/reports/:id" element={<ReportsPage />} />
+        <Route path="/details/:id" element={<Details />}>
+          <Route index element={<Navigate to="tasks" replace />} />
+          <Route path="tasks" element={<TaskPage />} />
+          <Route path="kanban" element={<KanbanPage />} />
+          <Route path="reports" element={<ReportsPage />} />
+          <Route path="chat" element={<ChatApp />} />
+        </Route>
       </Routes>
     </div>
   );

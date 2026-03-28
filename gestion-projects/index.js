@@ -67,6 +67,7 @@ app.put('/update/:id',authentificat, async(req,res) => {
         date_debut: req.body.date_debut,
         date_fin: req.body.date_fin,
         statut: req.body.statut,
+        members : req.body.member,
         categorie_id: req.body.categorie_id
     },{new : true})
     return res.json(update);

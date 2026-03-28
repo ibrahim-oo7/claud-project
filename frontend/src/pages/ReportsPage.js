@@ -18,6 +18,7 @@ import {
 } from "chart.js";
 
 import { Pie, Bar } from "react-chartjs-2";
+import "./ReportsPage.css";
 
 ChartJS.register(
   ArcElement,
@@ -123,7 +124,7 @@ function ReportsPage() {
       <div className="reports-header">
         <h1 className="reports-title">Project Reports</h1>
         <p className="reports-subtitle">
-          Analyse claire de l’avancement du projet, des priorités et de la charge de travail.
+          Clear analysis of project progress, priorities, and workload.
         </p>
       </div>
 

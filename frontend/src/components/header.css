@@ -1,76 +1,210 @@
-.header {
-  height: 70px; 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-
-  background: #0f172a;
+:root {
+  --primary-dark: #0f172a;
+  --primary-light: #cbd5f5;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --white: #ffffff;
+  --text-main: #e2e8f0;
+  --text-soft: #94a3b8;
+  --border-soft: rgba(203, 213, 245, 0.14);
+  --shadow-main: 0 8px 24px rgba(15, 23, 42, 0.22);
 }
-/* 🔥 brand (logo + name) */
+
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  min-height: 82px;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(15, 23, 42, 0.96);
+  border-bottom: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-main);
+}
+
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+}
+
+.logo-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(203, 213, 245, 0.10));
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
-  height: 100%;
-  max-height: 50px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
-.project-name {
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-  letter-spacing: 1px;
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  line-height: 1.1;
 }
 
-/* CENTER */
-.center {
+.project-name {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--white), #dbeafe, var(--accent), var(--white));
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: taskflowShine 4s linear infinite;
+}
+
+@keyframes taskflowShine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 220% center;
+  }
+}
+
+.project-subtitle {
+  margin-top: 3px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.4px;
+}
+
+.header-nav {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .nav-link {
-  color: #cbd5f5;
-  text-decoration: none;
   position: relative;
+  text-decoration: none;
+  color: var(--primary-light);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 4px 0;
+  transition: color 0.25s ease;
 }
 
 .nav-link:hover {
-  color: #38bdf8;
+  color: var(--white);
 }
 
 .nav-link::after {
   content: "";
   position: absolute;
-  bottom: -6px;
   left: 0;
-  width: 0%;
+  bottom: -6px;
+  width: 0;
   height: 2px;
-  background: #38bdf8;
-  transition: 0.3s;
+  background: var(--accent);
+  border-radius: 10px;
+  transition: width 0.25s ease;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 
-.active {
-  color: #38bdf8;
+.nav-link.active {
+  color: var(--white);
+  font-weight: 600;
 }
 
-.active::after {
-  width: 100%;
+.header-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 18px;
 }
 
-/* RIGHT */
-.avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 2px solid #38bdf8;
+.logout-btn {
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: transparent;
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 16px 20px;
+  }
+
+  .brand,
+  .header-nav,
+  .header-actions {
+    width: 100%;
+  }
+
+  .brand {
+    justify-content: center;
+  }
+
+  .brand-text {
+    align-items: center;
+  }
+
+  .header-nav {
+    justify-content: center;
+    margin-left: 0;
+    gap: 20px;
+  }
+
+  .header-actions {
+    justify-content: center;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-name {
+    font-size: 1.35rem;
+  }
+
+  .project-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .header-nav {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .logout-btn {
+    padding: 9px 14px;
+    font-size: 0.9rem;
+  }
 }

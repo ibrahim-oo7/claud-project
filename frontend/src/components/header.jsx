@@ -26,19 +26,27 @@ export default function Header() {
   return (
     <header className="header">
       <div className="brand">
-        <img src="/logo.png" alt="logo" className="logo" />
-        <h2 className="project-name">TaskFlow</h2>
+        <div className="logo-wrapper">
+          <img src="/logo.png" alt="logo" className="logo" />
+        </div>
+
+        <div className="brand-text">
+          <h2 className="project-name">TaskFlow</h2>
+          <span className="project-subtitle">Project Management Platform</span>
+        </div>
       </div>
 
       {token && (
         <>
-          <nav className="center">
+          <nav className="header-nav">
             {links.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={
-                  location.pathname === link.path ? "nav-link active" : "nav-link"
+                  location.pathname === link.path
+                    ? "nav-link active"
+                    : "nav-link"
                 }
               >
                 {link.name}
@@ -46,8 +54,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div>
-            <button onClick={handleLogout} className="nav-link">
+          <div className="header-actions">
+            <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>
           </div>

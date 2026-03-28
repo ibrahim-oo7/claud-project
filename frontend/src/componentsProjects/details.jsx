@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
+import "./ProjectDetails.css";
 
 export default function ProjectDetails() {
   const { id } = useParams();
@@ -22,23 +23,60 @@ export default function ProjectDetails() {
     getProjectDetails();
   }, [id]);
 
-  if (!project) return <p>Chargement...</p>;
-  console.log(id);
+  if (!project) return <p className="project-details-loading">Loading...</p>;
+
+  const linkClassName = ({ isActive }) =>
+    isActive
+      ? "project-sidebar-link active"
+      : "project-sidebar-link";
+
   return (
-    <div>
-      <h1>Détails du projet</h1>
-      <p><strong>Nom :</strong> {project.nom}</p>
-      <p><strong>Description :</strong> {project.description}</p>
-      <p><strong>Statut :</strong> {project.statut}</p>
+    <div className="project-details-page">
+      <div className="project-details-container">
+        <div className="project-details-header">
+          <h1 className="project-details-title">Project Details</h1>
+          <p className="project-details-subtitle">
+            View project information and manage related sections
+          </p>
+        </div>
 
-      <hr />
+        <div className="project-summary-card">
+          <p className="project-summary-item">
+            <strong>Project Name:</strong> {project.nom}
+          </p>
+          <p className="project-summary-item">
+            <strong>Description:</strong> {project.description}
+          </p>
+          <p className="project-summary-item">
+            <strong>Status:</strong> {project.statut}
+          </p>
+        </div>
 
-      <h3>Gestion du projet</h3>
+        <div className="project-layout">
+          <div className="project-sidebar">
+            <h3 className="project-sidebar-title">Project Management</h3>
 
-      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-        <Link to={`/tasks/${id}`}>Tasks</Link>
-        <Link to={`/kanban/${id}`}>Kanban</Link>
-        <Link to={`/reports/${id}`}>Reports</Link>
+            <NavLink to="tasks" className={linkClassName}>
+              Tasks
+            </NavLink>
+
+            <NavLink to="kanban" className={linkClassName}>
+              Kanban
+            </NavLink>
+
+            <NavLink to="reports" className={linkClassName}>
+              Reports
+            </NavLink>
+
+            <NavLink to="chat" className={linkClassName}>
+              Chat
+            </NavLink>
+          </div>
+
+          <div className="project-content-panel">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </div>
   );

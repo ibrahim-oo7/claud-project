@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import "./Login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -38,21 +39,57 @@ export default function Login() {
   };
 
   return (
-    <>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button type="submit">Login</button>
-      </form>
-      <Link to="/register">register</Link>
-    </>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-left">
+          <div className="login-brand-box">
+            <h1 className="login-brand-title">TaskFlow</h1>
+            <p className="login-brand-subtitle">Project Management Platform</p>
+          </div>
+
+          <div className="login-welcome">
+            <h2 className="login-title">Welcome Back</h2>
+            <p className="login-subtitle">
+              Sign in to access your workspace and manage your projects easily.
+            </p>
+          </div>
+        </div>
+
+        <div className="login-right">
+          <form onSubmit={handleLogin} className="login-form">
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="form-input"
+              />
+            </div>
+
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
+
+          <div className="register-box">
+            <span className="register-text">Don&apos;t have an account?</span>
+            <Link to="/register" className="register-link">
+              Register
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

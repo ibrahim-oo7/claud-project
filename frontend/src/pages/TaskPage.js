@@ -11,6 +11,7 @@ import {
   uploadTaskFile,
 } from "../services/taskService";
 import { getProjectById } from "../services/projectService";
+import "./TaskPage.css"
 
 function TaskPage() {
   const { id } = useParams();

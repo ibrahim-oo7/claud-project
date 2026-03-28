@@ -1,0 +1,214 @@
+:root {
+  --primary-dark: #0f172a;
+  --primary-light: #cbd5f5;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --white: #ffffff;
+  --text-main: #1e293b;
+  --text-soft: #64748b;
+  --border-soft: rgba(15, 23, 42, 0.08);
+  --shadow-main: 0 12px 30px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.project-details-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(203, 213, 245, 0.35), transparent 24%),
+    #ffffff;
+  padding: 28px 0;
+}
+
+.project-details-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.project-details-header {
+  margin-bottom: 24px;
+  padding: 0 20px;
+}
+
+.project-details-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(
+    90deg,
+    var(--primary-dark),
+    #1d4ed8,
+    var(--accent),
+    var(--primary-dark)
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: projectDetailsShine 4s linear infinite;
+}
+
+@keyframes projectDetailsShine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 220% center;
+  }
+}
+
+.project-details-subtitle {
+  margin: 8px 0 0;
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.project-summary-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: var(--shadow-main);
+  margin: 0 20px 24px;
+}
+
+.project-summary-item {
+  margin: 0 0 12px;
+  color: var(--text-main);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+.project-summary-item:last-child {
+  margin-bottom: 0;
+}
+
+.project-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 0 20px;
+}
+
+.project-sidebar {
+  width: 240px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+  min-height: 420px;
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0;
+}
+
+.project-sidebar-title {
+  margin: 0 0 16px;
+  color: var(--primary-dark);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.project-sidebar-link {
+  display: block;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--text-main);
+  background: transparent;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.project-sidebar-link:hover {
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--primary-dark);
+  border-color: rgba(56, 189, 248, 0.12);
+}
+
+.project-sidebar-link.active {
+  background: #dbeafe;
+  color: #0f172a;
+  font-weight: 700;
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+.project-content-panel {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+  min-height: 420px;
+  box-shadow: var(--shadow-soft);
+}
+
+.project-details-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-dark);
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+  }
+
+  .project-sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .project-content-panel {
+    width: 100%;
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-details-page {
+    padding: 18px 0;
+  }
+
+  .project-details-header {
+    padding: 0 12px;
+  }
+
+  .project-details-title {
+    font-size: 1.6rem;
+  }
+
+  .project-details-subtitle,
+  .project-summary-item {
+    font-size: 0.9rem;
+  }
+
+  .project-summary-card {
+    margin: 0 12px 18px;
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .project-layout {
+    padding: 0 12px;
+  }
+
+  .project-sidebar,
+  .project-content-panel {
+    border-radius: 16px;
+    padding: 14px;
+  }
+}
