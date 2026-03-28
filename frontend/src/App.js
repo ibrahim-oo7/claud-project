@@ -7,6 +7,7 @@ import Register from './components/register';
 import AfficherUtilisateurs from './components/AfficherUtilisateurs';
 import AjouterUtilisateur from './components/AjouterUtilisateur';
 import ModifierUtilisateur from './components/modifierUtilisateur';
+import ProfileEdit from './components/profile';
 
 // Project Components
 import Afficher from './componentsProjects/afficher';
@@ -81,6 +82,7 @@ function App() {
     <Route path="/myprojects" element={<MyProjects />} />
     <Route path="/ajouter" element={<Ajouter />} />
     <Route path="/modifier/:id" element={<Modifier />} />
+    <Route path="/profile" element={<ProfileEdit />} />
     
 
     <Route path="/details/:id" element={<Details />}>

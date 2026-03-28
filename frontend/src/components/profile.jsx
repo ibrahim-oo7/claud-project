@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./ProfileEdit.css";
 
 export default function ProfileEdit() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -16,14 +18,13 @@ export default function ProfileEdit() {
 
   useEffect(() => {
     if (user) {
-      setFormData({
+      setFormData((prev) => ({
+        ...prev,
         username: user.username || "",
         email: user.email || "",
-        oldPassword: "",
-        newPassword: "",
-      });
+      }));
     }
-  }, [user]);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,16 +32,17 @@ export default function ProfileEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await axios.put(
-        `http://localhost:3004/profile/update/${user._id}`,
+        `http://localhost:3001/profile/update/${user._id}`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       localStorage.setItem("user", JSON.stringify(res.data));
       alert("Profile updated successfully!");
-      navigate("/"); // نقدر نبدلو للصفحة ديال profile
+      navigate("/profile");
     } catch (err) {
       console.error(err.response || err.message);
       alert(err.response?.data?.message || "Failed to update profile");
@@ -48,45 +50,69 @@ export default function ProfileEdit() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "auto", padding: "20px" }}>
-      <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
+    <div className="profile-edit-page">
+      <div className="profile-edit-container">
+        <div className="profile-edit-header">
+          <h2 className="profile-edit-title">Edit Profile</h2>
+          <p className="profile-edit-subtitle">
+            Update your personal information and password
+          </p>
+        </div>
 
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit} className="profile-edit-form">
+          <div className="profile-edit-form-group">
+            <label className="profile-edit-label">Username:</label>
+            <input
+              className="profile-edit-input"
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <label>Old Password (required to change password):</label>
-        <input
-          type="password"
-          name="oldPassword"
-          value={formData.oldPassword}
-          onChange={handleChange}
-        />
+          <div className="profile-edit-form-group">
+            <label className="profile-edit-label">Email:</label>
+            <input
+              className="profile-edit-input"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <label>New Password:</label>
-        <input
-          type="password"
-          name="newPassword"
-          value={formData.newPassword}
-          onChange={handleChange}
-        />
+          <div className="profile-edit-form-group">
+            <label className="profile-edit-label">
+              Old Password (required to change password):
+            </label>
+            <input
+              className="profile-edit-input"
+              type="password"
+              name="oldPassword"
+              value={formData.oldPassword}
+              onChange={handleChange}
+            />
+          </div>
 
-        <button type="submit">Save Changes</button>
-      </form>
+          <div className="profile-edit-form-group">
+            <label className="profile-edit-label">New Password:</label>
+            <input
+              className="profile-edit-input"
+              type="password"
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button className="profile-edit-btn" type="submit">
+            Save Changes
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

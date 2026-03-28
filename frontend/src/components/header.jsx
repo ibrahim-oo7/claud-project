@@ -57,7 +57,9 @@ export default function Header() {
 
           <div className="header-actions">
       {user?.username && (
-        <span className="header-username">Hello, {user.username}</span>
+        <Link to="/profile" className="header-username-link">
+  <span className="header-username">Hello, {user.username}</span>
+</Link>
       )}
       <button onClick={handleLogout} className="logout-btn">
         Logout

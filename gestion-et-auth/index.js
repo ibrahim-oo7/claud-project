@@ -176,7 +176,7 @@ app.put("/profile/update/:id", authentificat, async (req, res) => {
       updateData.password = hashedPassword;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+    const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, {
       new: true,
     }).select("-password");
 
