@@ -1,0 +1,76 @@
+# version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  auth-service:
+    build:
+      context: ./gestion-et-auth
+      dockerfile: Dockerfile
+    container_name: auth-service
+    restart: always
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+
+  chat-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chat-service
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  project-service:
+    build:
+      context: ./gestion-projects
+      dockerfile: Dockerfile
+    container_name: project-service
+    restart: always
+    ports:
+      - "3004:3004"
+    depends_on:
+      - mongo
+
+  report-service:
+    build:
+      context: ./report-service
+      dockerfile: Dockerfile
+    container_name: report-service
+    restart: always
+    ports:
+      - "5003:5003"
+    environment:
+      - PORT=5003
+      - MONGO_URL=mongodb://mongo:27017/projetClaudGP
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - chat-service
+      - project-service
+      - report-service
+
+volumes:
+  mongo-data:
